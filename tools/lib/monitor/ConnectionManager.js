@@ -17,7 +17,8 @@ class ConnectionManager extends EventEmitter {
         this.baseMac = options.baseMac;
         this.logger = options.logger || console.log;
 
-        this.topics = [...StigaAPIElements.buildRobotMessageTopics(this.robotMac), ...StigaAPIElements.buildBaseMessageTopics(this.baseMac)]; // `${this.robotMac}/LOG/STATUS/ACK`,
+        this.includeAcks = true;
+        this.topics = [...StigaAPIElements.buildRobotMessageTopics(this.robotMac, this.includeAcks), ...StigaAPIElements.buildBaseMessageTopics(this.baseMac, this.includeAcks)];
 
         this.connected = false;
         this.connection = new StigaAPIConnectionMQTT(username, password, { client: 'unified', logger: this.logger, topics: this.topics });

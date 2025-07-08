@@ -153,8 +153,11 @@ const ROBOT_MESSAGE_TOPICS = {
     JSON_NOTIFICATION: (mac) => `${mac}/JSON_NOTIFICATION`,
 };
 
-function buildRobotMessageTopics(robotMac) {
-    return robotMac ? Object.values(ROBOT_MESSAGE_TOPICS).map((func) => func(robotMac)) : [];
+function buildRobotMessageTopics(robotMac, includeAcks) {
+    if (!robotMac) return [];
+    const topics = Object.values(ROBOT_MESSAGE_TOPICS).map((func) => func(robotMac));
+    if (includeAcks) ['STATUS', 'VERSION', 'SETTINGS', 'SCHEDULING_SETTINGS'].forEach((log) => topics.push(`${robotMac}/LOG/${log}/ACK`));
+    return topics;
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -932,8 +935,11 @@ const BASE_MESSAGE_TOPICS = {
     JSON_NOTIFICATION: (mac) => `${mac}/JSON_NOTIFICATION`,
 };
 
-function buildBaseMessageTopics(baseMac) {
-    return baseMac ? Object.values(BASE_MESSAGE_TOPICS).map((func) => func(baseMac)) : [];
+function buildBaseMessageTopics(baseMac, includeAcks) {
+    if (!baseMac) return [];
+    const topics = Object.values(BASE_MESSAGE_TOPICS).map((func) => func(baseMac));
+    if (includeAcks) ['STATUS', 'VERSION', 'SETTINGS'].forEach((log) => topics.push(`${baseMac}/LOG/${log}/ACK`));
+    return topics;
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------

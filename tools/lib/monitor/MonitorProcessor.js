@@ -79,7 +79,8 @@ class MonitorProcessor {
     }
 
     _handleRobotMessage(topic, decoded) {
-        if (topic.includes('/LOG/VERSION')) {
+        if (topic.endsWith('ACK')) {
+        } else if (topic.includes('/LOG/VERSION')) {
             this.display.log('Robot version response received');
             this._updateRobotVersion(decoded);
             if (this.ackFlags.robot_version) {
@@ -107,7 +108,8 @@ class MonitorProcessor {
     }
 
     _handleBaseMessage(topic, decoded) {
-        if (topic.includes('/LOG/VERSION')) {
+        if (topic.endsWith('ACK')) {
+        } else if (topic.includes('/LOG/VERSION')) {
             this.display.log('Base version response received');
             this._updateBaseVersion(decoded);
             if (this.ackFlags.base_version) {
