@@ -1,0 +1,256 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+install Doldrums (reflutter, https://github.com/rscloura/Doldrums)
+install APKEditor
+install uber-apk-signer
+obtain STIGA.GO app (from APKPure)
+
+root@gfmc-develop:/opt/share/stiga/reverse/app# ls -l
+total 109036
+-rw-r--r-- 1 root root   7508033 Jun 16 16:03 APKEditor-1.4.3.jar
+-rwxr-xr-x 1 root root 100928105 Jun 16 16:03 STIGA.GO_4.8.6_APKPure.xapk
+-rw-r--r-- 1 root root   3208194 Jun 16 16:03 uber-apk-signer-1.3.0.jar
+root@gfmc-develop:/opt/share/stiga/reverse/app# java -jar APKEditor-1.4.3.jar m -i STIGA.GO_4.8.6_APKPure.xapk
+00.000 I: [MERGE] Using: APKEditor version 1.4.3, ARSCLib version 1.3.6
+      -i = STIGA.GO_4.8.6_APKPure.xapk
+      -o = STIGA.GO_4.8.6_APKPure_merged.apk
+ __________________________________________
+00.039 I: [MERGE] Extracting to: tmp_3febee42
+01.480 I: [MERGE] Searching apk files ...
+01.484 I: [MERGE] Found apk files: 20
+01.805 I: [MERGE] Found modules: 20
+02.034 I: [MERGE] Merging: com.stiga.frontmowertractor
+02.037 I: [MERGE] Added [com.stiga.frontmowertractor] classes.dex -> classes.dex
+02.038 I: [MERGE] Added [com.stiga.frontmowertractor] classes2.dex -> classes2.dex
+03.325 I: [MERGE] Merging: config.de
+03.408 I: [MERGE] Merging: config.hi
+03.461 I: [MERGE] Merging: config.ru
+03.510 I: [MERGE] Merging: config.arm64_v8a
+03.513 I: [MERGE] Merging: config.tr
+03.561 I: [MERGE] Merging: config.th
+03.609 I: [MERGE] Merging: config.ja
+03.655 I: [MERGE] Merging: config.ar
+03.724 I: [MERGE] Merging: config.vi
+03.775 I: [MERGE] Merging: config.fr
+03.833 I: [MERGE] Merging: config.my
+03.886 I: [MERGE] Merging: config.xxhdpi
+03.954 I: [MERGE] Merging: config.es
+04.017 I: [MERGE] Merging: config.zh
+04.084 I: [MERGE] Merging: config.en
+04.162 I: [MERGE] Merging: config.it
+04.255 I: [MERGE] Merging: config.ko
+04.325 I: [MERGE] Merging: config.pt
+04.405 I: [MERGE] Merging: config.in
+04.542 I: [MERGE] Sanitizing manifest ...
+04.549 I: [MERGE] Removed-attribute : @0x0101064e
+04.550 I: [MERGE] Removed-attribute : @0x0101064f
+04.554 I: [MERGE] Removed-element : <meta-data> name="com.android.vending.splits.required"
+04.554 I: [MERGE] Removed-element : <meta-data> name="com.android.stamp.source"
+04.555 I: [MERGE] Removed-element : <meta-data> name="com.android.stamp.type"
+04.562 I: [MERGE] Removed-table-entry : res/xml/splits0.xml
+04.563 I: [MERGE] Removed-element : <meta-data> name="com.android.vending.splits"
+04.564 I: [MERGE] Removed-element : <meta-data> name="com.android.vending.derived.apk.id"
+04.694 I: [MERGE] Applying: extractNativeLibs=false
+04.694 I: [MERGE] Writing apk ...
+04.732 I: [MERGE] Buffering compress changed files ...
+05.694 I: [MERGE] Writing files: 1527
+06.105 I: [MERGE] Writing signature block ...
+07.548 I: [MERGE] Saved to: STIGA.GO_4.8.6_APKPure_merged.apk
+root@gfmc-develop:/opt/share/stiga/reverse/app# reflutter STIGA.GO_4.8.6_APKPure_merged.apk
+[*] Processing...
+
+Example: (192.168.1.154) etc.
+Please enter your BurpSuite IP: 192.168.0.77
+
+SnapshotHash: d20a1be77c3d3c41b2a5accaee1ce549
+The resulting apk file: ./release.RE.apk
+Please sign, align & install the apk file
+
+Configure Burp Suite proxy server to listen on *:8083
+Proxy Tab -> Options -> Proxy Listeners -> Edit -> Binding Tab
+
+Then enable invisible proxying in Request Handling Tab
+Support Invisible Proxying -> true
+
+root@gfmc-develop:/opt/share/stiga/reverse/app# java -jar uber-apk-signer-1.3.0.jar --apks release.RE.apk
+source:
+        /opt/share/stiga/reverse/app
+zipalign location: PATH
+        /usr/bin/zipalign
+keystore:
+        [0] 161a0018 /tmp/temp_3205129425878093864_debug.keystore (DEBUG_EMBEDDED)
+
+01. release.RE.apk
+
+        SIGN
+        file: /opt/share/stiga/reverse/app/release.RE.apk (94.99 MiB)
+        checksum: b4e208c0cdede6c1de16a25c094d8f57f7902d271c014246d3908d14475ae354 (sha256)
+        - zipalign success
+        - sign success
+
+        VERIFY
+        file: /opt/share/stiga/reverse/app/release.RE-aligned-debugSigned.apk (95.01 MiB)
+        checksum: ce238b09bf9fe3d8185e8a9a27b8fa790f4ff862667530590de37e03df165a64 (sha256)
+        - zipalign verified
+        - signature verified [v1, v2, v3]
+                99 warnings
+                Subject: CN=Android Debug, OU=Android, O=US, L=US, ST=US, C=US
+                SHA256: 1e08a903aef9c3a721510b64ec764d01d3d094eb954161b62544ea8f187b5953 / SHA256withRSA
+                Expires: Thu Mar 10 20:10:05 GMT 2044
+
+[Mon Jun 16 16:20:15 BST 2025][v1.3.0]
+Successfully processed 1 APKs and 0 errors in 6.61 seconds.
+root@gfmc-develop:/opt/share/stiga/reverse/app# ls -l
+total 402372
+-rw-r--r-- 1 root root   7508033 Jun 16 16:03 APKEditor-1.4.3.jar
+-rw-r--r-- 1 root root  99622566 Jun 16 16:20 release.RE-aligned-debugSigned.apk
+-rw-r--r-- 1 root root    796154 Jun 16 16:20 release.RE-aligned-debugSigned.apk.idsig
+-rw-r--r-- 1 root root  99608502 Jun 16 16:20 release.RE.apk
+-rw-r--r-- 1 root root 100343525 Jun 16 16:19 STIGA.GO_4.8.6_APKPure_merged.apk
+-rwxr-xr-x 1 root root 100928105 Jun 16 16:03 STIGA.GO_4.8.6_APKPure.xapk
+-rw-r--r-- 1 root root   3208194 Jun 16 16:03 uber-apk-signer-1.3.0.jar
+root@gfmc-develop:/opt/share/stiga/reverse/app# adb install release.RE-aligned-debugSigned.apk
+Performing Streamed Install
+Success
+root@gfmc-develop:/opt/share/stiga/reverse/app#
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+run ./intercept_traffic.js in the other terminal
+start app
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+root@gfmc-develop:/opt/share/stiga/reverse# ./intercept_traffic.js
+
+Stiga Intercept
+======================================================================
+Listening on: 8083
+HTTP traffic -> connectivity-production.stiga.com:443
+MQTT traffic -> robot-mqtt-broker2.stiga.com:8883
+Log file: intercept.log
+
+Type actions to mark in the log (e.g., "Pressed start button")
+======================================================================
+
+...
+
+2025-06-16T15:24:57.855Z COMMAND=SESSION                                          COMMENT=INIT             NEW SESSION
+2025-06-16T15:24:57.857Z COMMAND=SESSION                                          COMMENT=INIT             Time:       2025-06-16T15:24:57.851Z
+2025-06-16T15:24:57.858Z COMMAND=SESSION                                          COMMENT=INIT             Client:     192.168.0.52
+2025-06-16T15:24:57.864Z COMMAND=SESSION                                          COMMENT=INIT             Protocol:   HTTP
+2025-06-16T15:24:57.865Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:24:57.974Z COMMAND=SESSION                                          COMMENT=INIT             Connected to REST server
+2025-06-16T15:24:57.976Z COMMAND=HTTP                                             COMMENT=INIT             APP->SERVER HTTP REQUEST
+2025-06-16T15:24:57.976Z COMMAND=HTTP                                             COMMENT=INIT             Time:       2025-06-16T15:24:57.976Z
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             Method:     POST
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             URL:        /rest/int/V1/integration/admin/token
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             Protocol:   HTTP/1.1
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             Header:     user-agent: Dart/3.4 (dart:io)
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             Header:     content-type: multipart/form-data; boundary=--dio-boundary-3997910540
+2025-06-16T15:24:57.977Z COMMAND=HTTP                                             COMMENT=INIT             Header:     accept: application/json
+2025-06-16T15:24:57.978Z COMMAND=HTTP                                             COMMENT=INIT             Header:     accept-encoding: gzip
+2025-06-16T15:24:57.978Z COMMAND=HTTP                                             COMMENT=INIT             Header:     content-length: 223
+2025-06-16T15:24:57.978Z COMMAND=HTTP                                             COMMENT=INIT             Header:     host: stiga.com
+2025-06-16T15:24:57.978Z COMMAND=HTTP                                             COMMENT=INIT             Body:       Length=223 bytes
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       ----dio-boundary-3997910540
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       content-disposition: form-data; name="username"
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       api_frontend
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       ----dio-boundary-3997910540
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       content-disposition: form-data; name="password"
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       AHo$@t8DT4zbpofp
+2025-06-16T15:24:57.979Z COMMAND=HTTP                                             COMMENT=INIT             Text:       ----dio-boundary-3997910540--
+2025-06-16T15:24:57.980Z COMMAND=HTTP                                             COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:24:58.014Z COMMAND=HTTP                                             COMMENT=INIT             SERVER->APP HTTP RESPONSE
+2025-06-16T15:24:58.014Z COMMAND=HTTP                                             COMMENT=INIT             Time:       2025-06-16T15:24:58.014Z
+2025-06-16T15:24:58.015Z COMMAND=HTTP                                             COMMENT=INIT             Protocol:   HTTP/1.1
+2025-06-16T15:24:58.015Z COMMAND=HTTP                                             COMMENT=INIT             Status:     404 Not Found
+2025-06-16T15:24:58.015Z COMMAND=HTTP                                             COMMENT=INIT             Header:     Date: Mon, 16 Jun 2025 15:24:57 GMT
+2025-06-16T15:24:58.015Z COMMAND=HTTP                                             COMMENT=INIT             Header:     Content-Length: 74
+2025-06-16T15:24:58.016Z COMMAND=HTTP                                             COMMENT=INIT             Header:     Content-Type: text/plain; charset=utf-8
+2025-06-16T15:24:58.016Z COMMAND=HTTP                                             COMMENT=INIT             Header:     Via: 1.1 google
+2025-06-16T15:24:58.016Z COMMAND=HTTP                                             COMMENT=INIT             Header:     Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+2025-06-16T15:24:58.017Z COMMAND=HTTP                                             COMMENT=INIT             Body:       Length=74 bytes
+2025-06-16T15:24:58.018Z COMMAND=HTTP                                             COMMENT=INIT             Text:       response 404 (backend NotFound), service rules for the path non-existent
+2025-06-16T15:24:58.018Z COMMAND=HTTP                                             COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:24:58.463Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:24:58.464Z COMMAND=SESSION                                          COMMENT=INIT             NEW SESSION
+2025-06-16T15:24:58.464Z COMMAND=SESSION                                          COMMENT=INIT             Time:       2025-06-16T15:24:58.463Z
+2025-06-16T15:24:58.464Z COMMAND=SESSION                                          COMMENT=INIT             Client:     192.168.0.52
+2025-06-16T15:24:58.466Z COMMAND=SESSION                                          COMMENT=INIT             Protocol:   HTTP
+2025-06-16T15:24:58.466Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:24:58.504Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:24:58.504Z COMMAND=SESSION                                          COMMENT=INIT             NEW SESSION
+2025-06-16T15:24:58.505Z COMMAND=SESSION                                          COMMENT=INIT             Time:       2025-06-16T15:24:58.504Z
+2025-06-16T15:24:58.505Z COMMAND=SESSION                                          COMMENT=INIT             Client:     192.168.0.52
+2025-06-16T15:24:58.507Z COMMAND=SESSION                                          COMMENT=INIT             Protocol:   HTTP
+2025-06-16T15:24:58.507Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:24:58.549Z COMMAND=SESSION                                          COMMENT=INIT             Connected to REST server
+2025-06-16T15:24:58.550Z COMMAND=HTTP                                             COMMENT=INIT             APP->SERVER HTTP REQUEST
+2025-06-16T15:24:58.551Z COMMAND=HTTP                                             COMMENT=INIT             Time:       2025-06-16T15:24:58.550Z
+2025-06-16T15:24:58.551Z COMMAND=HTTP                                             COMMENT=INIT             Method:     GET
+2025-06-16T15:24:58.551Z COMMAND=HTTP                                             COMMENT=INIT             URL:        /api/imagetoken
+2025-06-16T15:24:58.552Z COMMAND=HTTP                                             COMMENT=INIT             Protocol:   HTTP/1.1
+2025-06-16T15:24:58.552Z COMMAND=HTTP                                             COMMENT=INIT             Header:     user-agent: Stiga.GO 4.8.6;Android 15 (SDK 35);Google Pixel 9
+2025-06-16T15:24:58.552Z COMMAND=HTTP                                             COMMENT=INIT             Header:     accept-encoding: gzip
+2025-06-16T15:24:58.552Z COMMAND=HTTP                                             COMMENT=INIT             Header:     host: connectivity-production.stiga.com
+
+...
+
+2025-06-16T15:25:49.422Z COMMAND=SESSION                                          COMMENT=INIT             NEW SESSION
+2025-06-16T15:25:49.423Z COMMAND=SESSION                                          COMMENT=INIT             Time:       2025-06-16T15:25:49.422Z
+2025-06-16T15:25:49.423Z COMMAND=SESSION                                          COMMENT=INIT             Client:     192.168.0.52
+2025-06-16T15:25:49.424Z COMMAND=SESSION                                          COMMENT=INIT             Protocol:   MQTT
+2025-06-16T15:25:49.425Z COMMAND=SESSION                                          COMMENT=INIT             ══════════════════════════════════════════════════════════════════════
+2025-06-16T15:25:49.502Z COMMAND=SESSION                                          COMMENT=INIT             Connected to MQTT broker
+2025-06-16T15:25:49.624Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.625Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.624Z
+2025-06-16T15:25:49.625Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=1
+2025-06-16T15:25:49.626Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      FC:E8:C0:72:EC:62/LOG/+ (QoS: 0)
+2025-06-16T15:25:49.626Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.627Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.627Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.627Z
+2025-06-16T15:25:49.628Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=2
+2025-06-16T15:25:49.628Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      CMD_REFERENCE_ACK/FC:E8:C0:72:EC:62 (QoS: 0)
+2025-06-16T15:25:49.629Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.629Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.630Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.629Z
+2025-06-16T15:25:49.630Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=3
+2025-06-16T15:25:49.631Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      FC:E8:C0:72:EC:62/JSON_NOTIFICATION (QoS: 0)
+2025-06-16T15:25:49.631Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.632Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             APP->BROKER PUBLISH
+2025-06-16T15:25:49.633Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Time:       2025-06-16T15:25:49.632Z
+2025-06-16T15:25:49.633Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Flags:      MessageID=4, QoS=2, Retain=false
+2025-06-16T15:25:49.634Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Topic:      FC:E8:C0:72:EC:62/CMD_REFERENCE
+2025-06-16T15:25:49.634Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Length:     2 bytes
+2025-06-16T15:25:49.635Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Payload:    0000  08 01                                              |..               |
+2025-06-16T15:25:49.638Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Decode:     REFER::CMD_REFER
+2025-06-16T15:25:49.638Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             Decode:     [1] Command Type: BASE_STATUS_REQUEST (1)
+2025-06-16T15:25:49.639Z COMMAND=FC:E8:C0:72:EC:62/CMD_REFERENCE                  COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.639Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.640Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.639Z
+2025-06-16T15:25:49.640Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=5
+2025-06-16T15:25:49.641Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      D0:EF:76:64:32:BA/LOG/+ (QoS: 0)
+2025-06-16T15:25:49.641Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.642Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.643Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.642Z
+2025-06-16T15:25:49.643Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=6
+2025-06-16T15:25:49.644Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      CMD_ROBOT_ACK/D0:EF:76:64:32:BA (QoS: 0)
+2025-06-16T15:25:49.644Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.645Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             APP->BROKER SUBSCRIBE
+2025-06-16T15:25:49.645Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Time:       2025-06-16T15:25:49.645Z
+2025-06-16T15:25:49.646Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Flags:      MessageID=7
+2025-06-16T15:25:49.646Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             Topic:      D0:EF:76:64:32:BA/JSON_NOTIFICATION (QoS: 0)
+2025-06-16T15:25:49.647Z COMMAND=SUBSCRIBE                                        COMMENT=INIT             ──────────────────────────────────────────────────────────────────────
+2025-06-16T15:25:49.648Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             APP->BROKER PUBLISH
+2025-06-16T15:25:49.648Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Time:       2025-06-16T15:25:49.648Z
+2025-06-16T15:25:49.649Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Flags:      MessageID=8, QoS=2, Retain=false
+2025-06-16T15:25:49.649Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Topic:      D0:EF:76:64:32:BA/CMD_ROBOT
+2025-06-16T15:25:49.650Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Length:     4 bytes
+2025-06-16T15:25:49.651Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Payload:    0000  08 15 18 15                                        |....             |
+2025-06-16T15:25:49.652Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Decode:     ROBOT::CMD_ROBOT
+2025-06-16T15:25:49.652Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Decode:     [1] Command Type: STOP/PAUSE (21)
+2025-06-16T15:25:49.653Z COMMAND=D0:EF:76:64:32:BA/CMD_ROBOT                      COMMENT=INIT             Decode:     [3] Command Echo: Confirmed
+
+

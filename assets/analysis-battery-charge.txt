@@ -1,0 +1,28 @@
+Loading charging events from database...
+Found 626 charging status messages
+
+Identifying complete charging sessions...
+Found 7 complete charging sessions
+
+Complete Charging Sessions (< 20% to > 80%):
+====================================================================================================
+Start Time               Duration    From %  To %    Change    Rate           Capacity
+----------------------------------------------------------------------------------------------------
+2025-07-01T12:06:00.024Z 68.5 min    15%     81%     +66%      14.45% / 15min 5000 mAh
+2025-07-01T19:52:44.373Z 70.0 min    18%     83%     +65%      13.93% / 15min 5000 mAh
+2025-07-02T13:01:40.331Z 87.6 min    0%      82%     +82%      14.04% / 15min 5000 mAh
+2025-07-02T22:30:43.192Z 83.7 min    4%      83%     +79%      14.16% / 15min 5000 mAh
+2025-07-03T13:06:33.666Z 78.1 min    9%      83%     +74%      14.22% / 15min 5000 mAh
+2025-07-03T22:11:26.572Z 75.3 min    13%     83%     +70%      13.95% / 15min 5000 mAh
+2025-07-06T19:44:15.877Z 75.0 min    15%     84%     +69%      13.80% / 15min 5000 mAh
+====================================================================================================
+
+Summary Statistics:
+  Total charging sessions analyzed: 7
+  Average charging rate: 14.08% per 15 minutes
+  Minimum charging rate: 13.80% per 15 minutes
+  Maximum charging rate: 14.45% per 15 minutes
+
+Estimated charging times (based on average rate):
+  20% to 80%: 64 minutes
+  0% to 100%: 107 minutes

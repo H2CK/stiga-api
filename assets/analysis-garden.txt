@@ -1,0 +1,50 @@
+Loading status events from database...
+Found 7473 status messages with mowing info
+
+Identifying garden completion cycles...
+Found 1 complete garden cycles
+
+Complete Garden Cycles:
+======================================================================================================================================================
+Start Time               Total    Undocked  Operating  Idle/Err  Docked   Und.Eff  Op.Eff   Max %  Lost Time
+------------------------------------------------------------------------------------------------------------------------------------------------------
+2025-07-01T10:41:39.658Z 8649m    3446m     1803m      1643m     5202m    39.8%    20.8%    100%   47.7%
+======================================================================================================================================================
+
+Summary Statistics (for cycles reaching ≥95%):
+  Complete garden cycles: 1
+
+  Time per complete garden:
+    Average undocked time: 3446 minutes (57.4 hours)
+    Average operating time: 1803 minutes (30.0 hours)
+    Average idle/error time: 1643 minutes (27.4 hours)
+
+  Efficiency:
+    Average undocked efficiency: 39.8% (undocked time vs total time)
+    Average operating efficiency: 20.8% (operating time vs total time)
+    Average time lost to issues: 47.7% of undocked time
+
+  Status time breakdown (all cycles):
+    ⚡ DOCKED                    5202 minutes
+    ✓ MOWING                    1232 minutes
+    ✗ ERROR                     1192 minutes
+    ✗ BLOCKED                   430 minutes
+    ✓ GOING_HOME                364 minutes
+    ✓ CUTTING_BORDER            106 minutes
+    ✓ NAVIGATING_TO_AREA        59 minutes
+    ✓ REACHING_FIRST_POINT      38 minutes
+    ✗ UNKNOWN_undefined         18 minutes
+    ✓ PLANNING_ONGOING          3 minutes
+
+
+Garden Completion Timeline:
+================================================================================
+2025-06-29: ███████████████████ 96%
+2025-06-30: ███████████████████ 96%
+2025-07-01: ████████████████████ 100%
+2025-07-02: ███████ 37%
+2025-07-03: ███████████ 57%
+2025-07-04: █████████████ 67%
+2025-07-05: ███████████████ 76%
+2025-07-06: ██████████████████ 93%
+2025-07-07: ████████████████████ 100%
