@@ -1,54 +1,71 @@
 
-This is an API for the Stiga A series Robot Mowers, specifically developed and tested with a Stiga A1500.
+UPDATE: 8 JULY 2025
 
+This is an API for the Stiga A series Robot Mowers, as developed and tested with a Stiga A1500.
 The API is entirely reverse engineered and therefore not officially provided nor supported by Stiga.
+It is still under active development, having just reached a viable first release, with further work planned.
+You should be aware that the API is unsupported and not extensively tested across models and circumstances.
+If you choose to use the API, you should expect to have degree of technical competence.
+The API operates on Linux based systems with NodeJS and some third-party (NPM installed) modules.
+With minimal changes, it would likely work on any system supported by NodeJS and the third-party modules.
+
 
 ARCHITECTURE
 
-The Robot Mowers have a Cloud infrastructure a HTTP interface authenticated by generating and OAuth token with your Stiga username/password.
+The Robot Mowers have a Cloud infrastructure with a HTTP interface accessed with an OAuth token generated 
+using your Stiga username/password.
 
-The Cloud infrastructure supplies a set of data, such as User (account) details, Notifications, Garden Perimeters and a "Garage" which 
-contains the primary device information: the Robot itself, its associated Reference Station and any communication "Packs".
+The Cloud infrastructure supplies a set of data, such as User (account) details, Notifications, Garden 
+Perimeters and a "Garage" which contains the primary device information: the Robot itself, its associated 
+Reference Station and any communication "Packs".
 
-With the Robot and Base station MAC addresses, provided by the "Garage", it is then possible to use the OAuth token to connect to an MQTT
-broker for direct access to the Robot and Base, to both control it, and monitor it. This MQTT connection will also yield traffic between
-the Robot and Base themselves (as the Robot communicates with it to enable/disable differential GNSS publishing) and between these and any
+With the Robot and Base station MAC addresses, provided by the "Garage", it is then possible to use the 
+OAuth token to connect to an MQTT broker for direct access to the Robot and Base, to both control it, and
+monitor it. This MQTT connection will also yield traffic between the Robot and Base themselves (as the 
+Robot communicates with it to enable/disable differential GNSS publishing) and between these and any
 other devices (such as mobile phone applications). 
 
-Primarily, the direct MQTT access enables (1) requesting/receiving version, status and setting information; (2) changing setting. 
+Primarily, the direct MQTT access enables (1) requesting/receiving version, status and setting information; 
+(2) changing setting. 
 
-The Robot also communicates directly with the Cloud for synchronisation of the Garden perimeters and details.
+The Robot also communicates directly with the Cloud for synchronisation of the Garden perimeters and 
+details.
 
 CURRENT STATUS
 
-The functionality for direct access to the Robot and Base is pretty substantial. On top of the API are some tools that allow
+The functionality for direct access to the Robot and Base is pretty substantial. 
 
-(1) to monitor the robot/base (capture, listen, intercept and monitor). This was developed to aid reverse engineering, but servces 
-as way to real-time monitor the robot/base in a text based console (the "monitor" option), and to "capture" the messages for later 
-analysis: in particular the status messages.
+On top of the API are some tools that allow
 
-(2) to analyse the robot/base (battery charge, battery consumption, garden completion, and position heatmap) to understand the
-charging, consumption and operating behaviours (to help optimise the scheduling choices) and also to understand the non-optimal
-performance (e.g. the amount of time the robot is spending stuck or in error states). The position heatmaps help understand the
-location (GNSS) and communication (mobile network) signal strengths as to where the weak and issue spots are. You can see some of
-these analysis and heatmaps in the assets folder.
+(1) to monitor the robot/base (capture, listen, intercept and monitor). This was developed to aid reverse
+engineering, but servces  as way to real-time monitor the robot/base in a text based console (the "monitor" 
+option), and to "capture" the messages for later analysis: in particular the status messages.
 
-(3) to command the robot/base (get status/version, get settings / update settings, command to start / stop, etc).
+(2) to analyse the robot/base (battery charge, battery consumption, garden completion, and position heatmap) 
+to understand the charging, consumption and operating behaviours (to help optimise the scheduling choices) 
+and also to understand the non-optimal performance (e.g. the amount of time the robot is spending stuck or
+in error states). The position heatmaps help understand the location (GNSS) and communication (mobile 
+network) signal strengths as to where the weak and issue spots are. You can see some of these analysis and
+heatmaps  in the assets folder.
+
+(3) to command the robot/base (get status/version, get settings / update settings, command to start / stop, 
+etc).
 
 There is in addition to the core API, a set of tests, and some reverse engineering tools remaining.
 
-Currently, there is still much work to do on (3), in particular the commands are still being built out and tested, and the 
-Cloud behaviour is still quite unexplored.
+Currently, there is still much work to do on (3), in particular the commands are still being built out and 
+tested, and the Cloud behaviour is still quite unexplored.
 
-However, in the current state, it gives a basic set of tools to monitor, analyse and control the Robot/Base. Thus far, all of
-this reverse engineering has occurred without physical access to the Robot/Base (it is at our summer house), and substantially
-more development will occur by the latter part  of 2025.
+However, in the current state, it gives a basic set of tools to monitor, analyse and control the Robot/Base. 
+Thus far, all of this reverse engineering has occurred without physical access to the Robot/Base (it is at 
+our summer house), and substantially more development will occur by the latter part  of 2025.
+
 
 AUTHENTICATION
 
-Currently, you need to create a "stiga_user_and_pass.js" in the main directory with the following contents. This is not an
-elegant solution and will be improved. In addition, some of the tools require credentials (for exporting database to Google
-Sheets) and keys (for generating heatmaps).
+Currently, you need to create a "stiga_user_and_pass.js" in the main directory with the following contents. 
+This is not an elegant solution and will be improved. In addition, some of the tools require credentials 
+(for exporting database to Google Sheets) and keys (for generating heatmaps).
 
 >>module.exports = {
 >>    username: 'your_email@gmail.com',
@@ -59,8 +76,8 @@ Sheets) and keys (for generating heatmaps).
 
 COMPONENTS
 
-The API is accessed through by requiring "api/StigAPI": there should be sufficient details in the tools and tests to illustrate
-how this works.
+The API is accessed through by requiring "api/StigAPI": there should be sufficient details in the tools 
+and tests to illustrate how this works.
 
     StigaAPI.js
     StigaAPIUtilitiesProtobuf.js, StigaAPIUtilitiesFormat.js
@@ -76,5 +93,6 @@ DIRECTORIES
 
 The assets directory stores generated assets from the tools (images, text, etc).
 
-The data directory holes the capture database and other diagnostic style data (e.g. listen and intercept logs).
+The data directory holes the capture database and other diagnostic style data (e.g. listen and
+intercept logs).
 
