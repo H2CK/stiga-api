@@ -20,12 +20,6 @@ class StigaAPIConnectionMQTT extends StigaAPIComponent {
     static getBrokerPassword(auth) {
         return auth.token;
     }
-    static getBrokerTopicsForRobot(robotMac) {
-        return robotMac ? [`CMD_ROBOT_ACK/${robotMac}`, `${robotMac}/CMD_ROBOT`, `${robotMac}/LOG/+`, `${robotMac}/JSON_NOTIFICATION`] : [];
-    }
-    static getBrokerTopicsForBase(baseMac) {
-        return baseMac ? [`CMD_REFERENCE_ACK/${baseMac}`, `${baseMac}/CMD_REFERENCE`, `${baseMac}/LOG/+`, `${baseMac}/JSON_NOTIFICATION`] : [];
-    }
 
     constructor(username, password, options = {}) {
         super(options);
