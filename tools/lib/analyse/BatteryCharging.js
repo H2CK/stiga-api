@@ -15,7 +15,7 @@ class BatteryChargingAnalyser extends AnalyserBase {
         return {
             command: 'battery-charge',
             description: 'Analyze battery charging patterns',
-            detailedDescription: 'Tracks charging sessions from <20% to >80% and calculates charging rates and estimated charging times.',
+            detailedDescription: 'Tracks charging sessions from <30% to >80% and calculates charging rates and estimated charging times.',
             options: { '--detailed': 'Show additional statistics (charging events by hour, battery level distribution)' },
             examples: ['stiga-analyser.js battery-charge capture.db', 'stiga-analyser.js battery-charge capture.db --detailed'],
         };
@@ -74,7 +74,7 @@ class BatteryChargingAnalyser extends AnalyserBase {
         let sessionStart;
         let lastEvent;
         for (const event of this.chargingEvents) {
-            if (!sessionStart && event.batteryCharge < 20) {
+            if (!sessionStart && event.batteryCharge < 30) {
                 sessionStart = event;
                 lastEvent = event;
                 continue;
@@ -82,16 +82,16 @@ class BatteryChargingAnalyser extends AnalyserBase {
             if (sessionStart) {
                 const timeDiff = event.time - lastEvent.time;
                 if (timeDiff > 30 * 60 * 1000) {
-                    sessionStart = event.batteryCharge < 20 ? event : undefined;
+                    sessionStart = event.batteryCharge < 30 ? event : undefined;
                     lastEvent = event;
                     continue;
                 }
                 if (event.batteryCharge < lastEvent.batteryCharge - 2) {
-                    sessionStart = event.batteryCharge < 20 ? event : undefined;
+                    sessionStart = event.batteryCharge < 30 ? event : undefined;
                     lastEvent = event;
                     continue;
                 }
-                if (event.batteryCharge > 80 && sessionStart.batteryCharge < 20) {
+                if (event.batteryCharge > 80 && sessionStart.batteryCharge < 30) {
                     this.chargingSessions.push({
                         startTime: sessionStart.timestamp,
                         endTime: event.timestamp,
@@ -108,7 +108,7 @@ class BatteryChargingAnalyser extends AnalyserBase {
     }
 
     displayResults() {
-        console.log('Complete Charging Sessions (< 20% to > 80%):');
+        console.log('Complete Charging Sessions (< 30% to > 80%):');
         console.log('='.repeat(100));
         console.log('Start Time'.padEnd(25) + 'Duration'.padEnd(12) + 'From %'.padEnd(8) + 'To %'.padEnd(8) + 'Change'.padEnd(10) + 'Rate'.padEnd(15) + 'Capacity');
         console.log('-'.repeat(100));
@@ -138,10 +138,10 @@ class BatteryChargingAnalyser extends AnalyserBase {
             console.log(`  Average charging rate: ${avgRate.toFixed(2)}% per 15 minutes`);
             console.log(`  Minimum charging rate: ${minRate.toFixed(2)}% per 15 minutes`);
             console.log(`  Maximum charging rate: ${maxRate.toFixed(2)}% per 15 minutes`);
-            const timeFor20To80 = (60 / avgRate) * 15,
+            const timeFor30To80 = (50 / avgRate) * 15,
                 timeFor0To100 = (100 / avgRate) * 15;
             console.log(`\nEstimated charging times (based on average rate):`);
-            console.log(`  20% to 80%: ${timeFor20To80.toFixed(0)} minutes`);
+            console.log(`  30% to 80%: ${timeFor30To80.toFixed(0)} minutes`);
             console.log(`  0% to 100%: ${timeFor0To100.toFixed(0)} minutes`);
         } else {
             console.log('\nNo complete charging sessions found.');

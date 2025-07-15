@@ -80,6 +80,7 @@ class MonitorProcessor {
 
     _handleRobotMessage(topic, decoded) {
         if (topic.endsWith('ACK')) {
+            // ignore
         } else if (topic.includes('/LOG/VERSION')) {
             this.display.log('Robot version response received');
             this._updateRobotVersion(decoded);
@@ -109,6 +110,7 @@ class MonitorProcessor {
 
     _handleBaseMessage(topic, decoded) {
         if (topic.endsWith('ACK')) {
+            // ignore
         } else if (topic.includes('/LOG/VERSION')) {
             this.display.log('Base version response received');
             this._updateBaseVersion(decoded);

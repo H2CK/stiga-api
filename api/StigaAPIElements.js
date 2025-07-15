@@ -326,7 +326,7 @@ const ROBOT_STATUS_INFO_CODES = {
     0x01b1: 'BUMP_SENSOR', // 2/1/1 (433)
     0x01b2: 'SLOPE_SENSOR', // 2/1/1 (434)
     0x01b3: 'TRAPPED', // 2/1/1 (435)
-    0x01fa: 'UNKNOWN_01FA', // 2/1/1 (506) critical battery level?
+    0x01fa: 'DOCKING_ERROR', // 2/1/1 (506) critical battery level?
     0x03ef: 'UNKNOWN_03EF', // 3/1/1 and 2/1/1
     0x03f0: 'OUT_OF_PERIMETER', // 1/1/1 (1008)
 };
