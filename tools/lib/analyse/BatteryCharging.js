@@ -17,7 +17,7 @@ class BatteryChargingAnalyser extends AnalyserBase {
             description: 'Analyze battery charging patterns',
             detailedDescription: 'Tracks charging sessions from <30% to >80% and calculates charging rates and estimated charging times.',
             options: { '--detailed': 'Show additional statistics (charging events by hour, battery level distribution)' },
-            examples: ['stiga-analyser.js battery-charge capture.db', 'stiga-analyser.js battery-charge capture.db --detailed'],
+            examples: ['stiga-analyser.js battery-charge', 'stiga-analyser.js battery-charge --detailed'],
         };
     }
 

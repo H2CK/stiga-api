@@ -17,7 +17,7 @@ class BatteryConsumptionAnalyser extends AnalyserBase {
             description: 'Analyze battery consumption during mowing',
             detailedDescription: 'Tracks battery usage during mowing sessions (>15 min) and estimates maximum mowing time on a full charge.',
             options: { '--detailed': 'Show additional statistics (status distribution, consumption by battery level)' },
-            examples: ['stiga-analyser.js battery-consumption capture.db', 'stiga-analyser.js battery-consumption capture.db --detailed'],
+            examples: ['stiga-analyser.js battery-consumption', 'stiga-analyser.js battery-consumption --detailed'],
         };
     }
 

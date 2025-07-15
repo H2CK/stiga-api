@@ -37,9 +37,9 @@ class PositionHeatmapAnalyser extends AnalyserBase {
                 '--output': 'Output directory (default: /opt/stiga-api/assets)',
             },
             examples: [
-                'stiga-analyse.js position-heatmap capture.db --apikey YOUR_KEY',
-                'stiga-analyse.js position-heatmap capture.db --apikey YOUR_KEY --zoom 19 --smooth 5 --color thermal',
-                'stiga-analyse.js position-heatmap capture.db --apikey YOUR_KEY --dynamic-range --clamp-percentile 10:90',
+                'stiga-analyse.js position-heatmap --apikey YOUR_KEY',
+                'stiga-analyse.js position-heatmap --apikey YOUR_KEY --zoom 19 --smooth 5 --color thermal',
+                'stiga-analyse.js position-heatmap --apikey YOUR_KEY --dynamic-range --clamp-percentile 10:90',
             ],
         };
     }

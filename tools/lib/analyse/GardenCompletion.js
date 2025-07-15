@@ -17,7 +17,7 @@ class GardenCompletionAnalyser extends AnalyserBase {
             description: 'Analyze garden completion cycles',
             detailedDescription: 'Tracks how long it takes to complete the entire garden, including both operating time and idle/error time analysis.',
             options: {},
-            examples: ['stiga-analyser.js garden-completion capture.db'],
+            examples: ['stiga-analyser.js garden-completion'],
         };
     }
 
