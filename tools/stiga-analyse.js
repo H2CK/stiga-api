@@ -19,7 +19,7 @@ function displayHelp() {
 Stiga Analyser
 
 Usage:
-  stiga-analyser.js <command> <database> [options]
+  stiga-analyser.js [--database=<path>] <command> [options]
   
 Commands:`);
     const maxCommandLength = Math.max(...ANALYSERS.map((a) => a.getMetadata().command.length));
@@ -28,11 +28,9 @@ Commands:`);
         if (meta.options) Object.entries(meta.options).forEach(([flag, desc]) => console.log(`    ${flag.padEnd(maxCommandLength + 2)}${desc}`));
     });
     console.log(`  
-Arguments:
-  <database>           Path to SQLite database file
-  --mac_device=MAC     Device MAC address (default: D0:EF:76:64:32:BA)
-  
 Global Options:
+  --database=<path>    Path to SQLite database file (default: /opt/stiga-api/data/capture.db)
+  --mac_device=MAC     Device MAC address (default: D0:EF:76:64:32:BA)
   --help               Show this help
   
 Description:`);
@@ -46,15 +44,25 @@ Examples:`);
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 let robotMac = 'D0:EF:76:64:32:BA';
+let dbPath = '/opt/stiga-api/data/capture.db';
 
 async function main() {
     const args = process.argv.slice(2);
-    if (args.length < 2 || args[0] === '--help') {
+    if (args.includes('--help')) {
         displayHelp();
         process.exit(0);
     }
-    const command = args[0],
-        dbPath = args[1];
+    const dbArgIndex = args.findIndex((arg) => arg.startsWith('--database='));
+    if (dbArgIndex !== -1) {
+        dbPath = args[dbArgIndex].split('=')[1];
+        args.splice(dbArgIndex, 1);
+    }
+    if (args.length < 1) {
+        console.error('Error: No command specified');
+        displayHelp();
+        process.exit(1);
+    }
+    const command = args[0];
     const AnalyserClass = analyserMap.get(command);
     if (!AnalyserClass) {
         console.error(`Unknown command: ${command}`);
