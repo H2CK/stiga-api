@@ -80,7 +80,7 @@ class StigaAPIConnectionMQTT extends StigaAPIComponent {
                 handler(topic, message);
             });
             this.client.on('error', (err) => {
-                this.error('connection: mqtt error:', err);
+                this.display.error('connection: mqtt error:', err);
                 this.connected = false;
             });
             this.client.on('close', () => {
