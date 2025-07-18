@@ -28,6 +28,8 @@ const DEFAULT_CONFIG = {
     capture_db: 'capture.db',
     listen_file: 'listen.log',
     intercept_port: 8083,
+    timing_levels_docked: 'status:30s,version:60m,settings:30m',
+    timing_levels_undocked: 'status:30s,version:30m,settings:5m'
 };
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
