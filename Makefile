@@ -24,3 +24,8 @@ display:
 		data/capture.db \
 		--lat 59.661918668015225 --lon 12.996299751022182 \
 		--apikey `cat ./.apikey` --port 4000
+
+monitor:
+	tools/stiga-monitor.js \
+		--monitor --capture \
+		--timing-levels-docked=status:30s,version:60m,settings:30m --timing-levels-undocked=status:30s,version:30m,settings:5m

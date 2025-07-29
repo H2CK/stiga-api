@@ -71,7 +71,7 @@ class StigaAPIConnectionDevice extends StigaAPIComponent {
         try {
             this.options.clientId = clientId;
             if (!(await this.authenticate())) return false;
-            this.display.debug(`connection: mqtt broker connection request (client=${clientId})`);
+            this.display.debug(`connection: mqtt broker connection request (client=${clientId}, broker=${this.broker})`);
             return new Promise((resolve, reject) => {
                 let connected = false;
                 this.client = mqtt.connect(this.broker, this.options);
