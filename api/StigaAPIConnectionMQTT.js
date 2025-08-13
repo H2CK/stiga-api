@@ -12,6 +12,9 @@ const StigaAPIComponent = require('./StigaAPIComponent');
 
 class StigaAPIConnectionMQTT extends StigaAPIComponent {
     static getBrokerURL(brokerId) {
+        if (brokerId === undefined) {
+            brokerId = "broker";
+        }
         return `mqtts://robot-mqtt-${brokerId}.stiga.com:8883`;
     }
     static getBrokerUsername() {
