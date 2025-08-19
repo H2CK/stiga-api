@@ -331,10 +331,10 @@ async function main() {
 
     if (args.length === 0 || args[0] === '--help') {
         console.log(`
-Stiga Database Exporter (SQLite)
+Stiga Exporter (SQLite)
 
 Usage:
-  stiga-database-exporter.js <database> [options]
+  stiga-exporter.js <database> [options]
     
 Options:
   --format <log|csv|sheets>     Output format (default: log)
@@ -354,10 +354,10 @@ Environment (for Google Sheets):
   GOOGLE_IMPERSONATE_EMAIL      Email to impersonate (REQUIRED for sheets format)
   
 Examples:
-  stiga-database-exporter.js capture.db --stats
-  stiga-database-exporter.js capture.db --format csv --output analysis.csv
-  stiga-database-exporter.js capture.db --format sheets --credentials creds.json --sheet-name "MQTT Analysis"
-  stiga-database-exporter.js capture.db --start 2025-06-22T00:00:00Z --end 2025-06-23T00:00:00Z
+  stiga-exporter.js capture.db --stats
+  stiga-exporter.js capture.db --format csv --output analysis.csv
+  stiga-exporter.js capture.db --format sheets --credentials creds.json --sheet-name "MQTT Analysis"
+  stiga-exporter.js capture.db --start 2025-06-22T00:00:00Z --end 2025-06-23T00:00:00Z
   
 Note: This exporter can run while capture is active (uses read-only mode).
 

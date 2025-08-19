@@ -27,5 +27,25 @@ display:
 
 monitor:
 	tools/stiga-monitor.js \
-		--monitor --capture \
-		--timing-levels-docked=status:30s,version:60m,settings:30m --timing-levels-undocked=status:30s,version:30m,settings:5m
+		--monitor --capture 
+
+##
+
+SYSTEMD_DIR = /etc/systemd/system
+define install_systemd_service
+	-systemctl stop $(1) 2>/dev/null || true
+	-systemctl disable $(1) 2>/dev/null || true
+	cp $(2).service $(SYSTEMD_DIR)/$(1).service
+	systemctl daemon-reload
+	systemctl enable $(1)
+	systemctl start $(1) || echo "Warning: Failed to start $(1)"
+endef
+service_install: tools/stiga-monitor.service
+	$(call install_systemd_service,stiga-monitor,tools/stiga-monitor)
+service_watch:
+	journalctl -u stiga-monitor -f
+service_restart:
+	systemctl restart stiga-monitor
+.PHONY: service_install
+.PHONY: service_watch service_restart
+

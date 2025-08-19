@@ -1,0 +1,14 @@
+[Unit]
+Description=Stiga Monitor Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/stiga-api/tools/stiga-monitor.js --monitor --capture --background
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+
