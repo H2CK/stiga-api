@@ -329,7 +329,7 @@ const ROBOT_STATUS_INFO_CODES = {
     0x01b3: 'TRAPPED', // 2/1/1 (435)
     0x01fa: 'DOCKING_ERROR', // 2/1/1 (506) critical battery level?
     0x0389: 'WHEEL_TROUBLE', // 3/1/1 (905) [when BLOCKED]
-    0x03ef: 'UNKNOWN_03EF', // 3/1/1 and 2/1/1
+    0x03ef: 'SURFACE_TOO_SLIPPERY', // 3/1/1 and 2/1/1
     0x03f0: 'OUT_OF_PERIMETER', // 1/1/1 (1008)
 };
 
