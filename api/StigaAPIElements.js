@@ -421,8 +421,9 @@ function upgradeRobotCloudSync(cloudSync) {
 // relative to Base location
 function decodeRobotPosition(decoded, location) {
     const offsetLongitudeMetres = hexToDouble(decoded[1]),
-        offsetLatitutdeMetres = hexToDouble(decoded[2]),
-        orientRad = hexToDouble(decoded[3]);
+        offsetLatitutdeMetres = hexToDouble(decoded[2]);
+    const orientRad = decoded[3] === undefined ? 0 : hexToDouble(decoded[3]);
+
     //
     const offsetDegrees = (Math.atan2(offsetLongitudeMetres, offsetLatitutdeMetres) * 180) / Math.PI,
         offsetCompass = (90 - offsetDegrees + 360) % 360;
